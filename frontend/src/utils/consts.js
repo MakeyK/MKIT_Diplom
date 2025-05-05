@@ -1,0 +1,11 @@
+export const ADMINPANEL_ROUTE = '/admin';
+export const REGISTRATION_ROUTE = '/registration';
+export const AUTH_ROUTE = '/login';
+export const MAINKURATOR_ROUTE = '/mainkurator';
+export const MAINSTUDENT_ROUTE =  '/maainstudent';
+export const MAINTEACHER_ROUTE = '/mainteacher';
+export const PROFILEKURATOR_ROUTE = '/profilekurator';
+export const PROFILETEACHER_ROUTE = '/profileteacher';
+export const ADDOCHENKATEACHER_ROUTE = '/add';
+export const TECHNICALSUPPORTTEACHER_ROUTE = '/tehsupportteacher';
+export const TECHNICALSUPPORTSTUDENT_ROUTE = '/tehsupportstudent';
