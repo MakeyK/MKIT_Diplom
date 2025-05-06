@@ -4,17 +4,20 @@ const { Students, Groups } = require('../models/models');
 class StudentController {
     async create(req, res, next) {
         try {
-            const { id_group, first_name, last_name, patronymic, date_of_birthday, admission_year, student_card_number, phone_number } = req.body;
-            if (!id_group || !first_name || !last_name || !admission_year || !student_card_number) {
-                return next(ApiError.badRequest('Необходимо заполнить обязательные поля: ID группы, имя, фамилия, год поступления и номер студенческого билета'));
+            const { first_name, last_name, patronymic, date_of_birthday, admission_year, student_card_number, phone_number, id_group } = req.body;
+
+            if (!first_name || !last_name || !admission_year || !student_card_number) {
+                return next(ApiError.badRequest('Необходимо заполнить обязательные поля: имя, фамилия, год поступления и номер студенческого билета'));
             }
-            const group = await Groups.findOne({ where: { id_group } });
-            if (!group) {
-                return next(ApiError.badRequest('Указанная группа не существует'));
+            let studentData = { first_name, last_name, patronymic: patronymic || null, date_of_birthday: date_of_birthday || null, admission_year, student_card_number, phone_number: phone_number || null };
+            if (id_group) {
+                const group = await Groups.findOne({ where: { id_group } });
+                if (!group) {
+                    return next(ApiError.badRequest('Указанная группа не существует'));
+                }
+                studentData.id_group = id_group;
             }
-            const student = await Students.create({
-                id_group, first_name, last_name, patronymic: patronymic || null, date_of_birthday: date_of_birthday || null, admission_year, student_card_number, phone_number: phone_number || null
-            });
+            const student = await Students.create(studentData);
             return res.json(student);
         } catch (error) {
             console.error('Create student error:', error);
@@ -22,10 +25,15 @@ class StudentController {
         }
     }
 
+    // Получение всех студентов
     async getAll(req, res, next) {
         try {
             const students = await Students.findAll({
-                include: [{ model: Groups, as: 'group' }],
+                include: [{
+                    model: Groups,
+                    as: 'group',
+                    attributes: ['id_group', 'group_name']
+                }],
                 order: [['last_name', 'ASC']]
             });
             return res.json(students);
@@ -44,7 +52,11 @@ class StudentController {
             }
             const student = await Students.findOne({
                 where: { id_student: id },
-                include: [{ model: Groups, as: 'group' }]
+                include: [{
+                    model: Groups,
+                    as: 'group',
+                    attributes: ['id_group', 'group_name']
+                }]
             });
             if (!student) {
                 return next(ApiError.notFound('Студент не найден'));
@@ -74,17 +86,22 @@ class StudentController {
                     return next(ApiError.badRequest('Указанная группа не существует'));
                 }
             }
+            const updatedData = {
+                first_name: first_name || student.first_name,
+                last_name: last_name || student.last_name,
+                patronymic: patronymic !== undefined ? patronymic : student.patronymic,
+                date_of_birthday: date_of_birthday || student.date_of_birthday,
+                admission_year: admission_year || student.admission_year,
+                student_card_number: student_card_number || student.student_card_number,
+                phone_number: phone_number !== undefined ? phone_number : student.phone_number
+            };
+
+            // Обновляем id_group только если он передан
+            if (id_group !== undefined) {
+                updatedData.id_group = id_group;
+            }
             const updatedStudent = await Students.update(
-                {
-                    id_group: id_group || student.id_group,
-                    first_name: first_name || student.first_name,
-                    last_name: last_name || student.last_name,
-                    patronymic: patronymic !== undefined ? patronymic : student.patronymic,
-                    date_of_birthday: date_of_birthday || student.date_of_birthday,
-                    admission_year: admission_year || student.admission_year,
-                    student_card_number: student_card_number || student.student_card_number,
-                    phone_number: phone_number !== undefined ? phone_number : student.phone_number
-                },
+                updatedData,
                 {
                     where: { id_student: id },
                     returning: true

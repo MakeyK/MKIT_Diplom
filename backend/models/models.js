@@ -45,7 +45,7 @@ const SupportTickets = sequelize.define('support_tickets', {
     status: { type: DataTypes.STRING },
     priority: { type: DataTypes.STRING },
     created_at: { type: DataTypes.DATE }
-}, { timestamps: false });
+});
 
 const GroupCourse = sequelize.define('group_course', {
     id_group: { type: DataTypes.UUID, references: { model: Groups, key: 'id_group' } },
