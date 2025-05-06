@@ -1,57 +1,100 @@
-const ApiError = require('../ApiError')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const { Users, UserStorage } = require('../models/models')
-const sequelize = require('../db');
+const ApiError = require('../ApiError');
+const jwt = require('jsonwebtoken');
+const { Users } = require('../models/models');
+
+const ROLE_KEYS = {
+  admin: 'adminrole',
+  student: 'mkit',
+  curator: 'kurator111',
+  instructor: 'prepod590'
+};
 
 const generateJwt = (id_user, login, role) => {
-  return jwt.sign
-    (
-      { id_user, login, role },
-      process.env.SECRET_KEY,
-      { expiresIn: '72h' }
-    )
-}
+  return jwt.sign(
+    { id_user, login, role },
+    process.env.SECRET_KEY,
+    { expiresIn: '72h' }
+  );
+};
 
 class AuthController {
   async registration(req, res, next) {
     try {
       const { login, password, secretKey } = req.body;
-      let candidate = await Users.findOne({ where: { login } });
-      if (candidate) {
-        return next(ApiError.badRequest('Пользователь с таким login уже существует'));
+
+      if (!login || !password || !secretKey) {
+        return next(ApiError.badRequest('Все поля (логин, пароль и секретный ключ) обязательны для заполнения'));
       }
+
+      const validKeys = Object.values(ROLE_KEYS);
+      if (!validKeys.includes(secretKey)) {
+        return next(ApiError.badRequest('Неверный секретный ключ'));
+      }
+
+      const candidate = await Users.findOne({ where: { login } });
+      if (candidate) {
+        return next(ApiError.badRequest('Пользователь с таким логином уже существует'));
+      }
+
       let role = 'user';
-      if (secretKey === 'MakeyK') {
-        role = 'admin';
+      for (const [roleName, key] of Object.entries(ROLE_KEYS)) {
+        if (secretKey === key) {
+          role = roleName;
+          break;
+        }
       }
       const user = await Users.create({ login, password, role });
       const token = generateJwt(user.id_user, user.login, user.role);
+
       return res.json({ token });
     } catch (error) {
-      console.log(error);
-      return next(ApiError.badRequest("Сервер чуть не сгорел"));
+      console.error('Registration error:', error);
+      return next(ApiError.internal('Ошибка при регистрации'));
     }
   }
-
 
   async login(req, res, next) {
     try {
-      const { login, password } = req.body
-      const user = await Users.findOne({ where: { login } })
-      if (!user) {
-        return next(ApiError.interval('Пользователь не найден'))
+      const { login, password } = req.body;
+
+      if (!login || !password) {
+        return next(ApiError.badRequest('Логин и пароль обязательны для заполнения'));
       }
-      const token = generateJwt(user.id_user, user.login, user.role)
-      res.json({ token: token })
+
+      const user = await Users.findOne({ where: { login } });
+
+      if (!user) {
+        return next(ApiError.notFound('Пользователь не найден'));
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return next(ApiError.unauthorized('Неверный пароль'));
+      }
+
+      // Временная проверка пароля без хеширования (для тестирования)
+      if (password !== user.password) {
+        return next(ApiError.unauthorized('Неверный пароль'));
+      }
+
+      const token = generateJwt(user.id_user, user.login, user.role);
+      return res.json({ token });
     } catch (error) {
-      console.log(error)
-      return next(ApiError.badRequest("Сервер чуть не сгорел"))
+      console.error('Login error:', error);
+      return next(ApiError.internal('Ошибка при входе в систему'));
     }
   }
 
-
+  // Метод для проверки авторизации (может понадобится)
+  async check(req, res, next) {
+    try {
+      const token = generateJwt(req.user.id_user, req.user.login, req.user.role);
+      return res.json({ token });
+    } catch (error) {
+      console.error('Check auth error:', error);
+      return next(ApiError.internal('Ошибка проверки авторизации'));
+    }
+  }
 }
 
-
-module.exports = new AuthController()   
+module.exports = new AuthController();
