@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, Container, Form, Button } from 'react-bootstrap';
 import { REGISTRATION_ROUTE } from "../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
-import { login } from "../http/userApi"; // Предполагается, что у вас есть функция login в userApi
+import { login } from "../http/userApi";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import fon from '../files/fon.png';
@@ -48,7 +48,7 @@ const Auth = observer(() => {
                 fontFamily: '"Press Start 2P", cursive'
             }}>
             <Card style={{ width: '900px', height: '545px', borderRadius: '100px', padding: '60px 40px' }} className="p-5">
-                <h2 style={{color: '#2FDBBC', fontSize: '48px', textAlign: 'center', marginBottom: '60px'}}>Авторизация</h2>
+                <h2 style={{ color: '#2FDBBC', fontSize: '48px', textAlign: 'center', marginBottom: '60px' }}>Авторизация</h2>
 
                 <Form className="d-flex flex-column align-items-center">
                     <Form.Control
