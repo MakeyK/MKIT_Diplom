@@ -6,6 +6,7 @@ import { registration } from "../http/userApi";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import fon from '../files/fon.png'
+import { MAINSTUDENT_ROUTE } from '../utils/consts'
 
 const Registration = observer(() => {
     const { user } = useContext(Context);
@@ -21,7 +22,7 @@ const Registration = observer(() => {
         document.body.style.backgroundPosition = "center";
         document.body.style.backgroundAttachment = "fixed";
         document.body.style.backgroundRepeat = "no-repeat";
-        
+
         return () => {
             document.body.style.backgroundImage = "";
             document.body.style.backgroundSize = "";
@@ -36,6 +37,7 @@ const Registration = observer(() => {
             const response = await registration(login, password, email, secretKey);
             user.setUser();
             user.setIsAuth(true);
+            navigate(MAINSTUDENT_ROUTE)
         }
         catch (e) {
             alert(e.response.data.message);

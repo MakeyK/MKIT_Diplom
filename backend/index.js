@@ -34,7 +34,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/mak', routes_createDB);
+app.use('/api', routes_createDB);
 
 const start = async () => {
     try {

@@ -10,7 +10,7 @@ import fon from '../files/fon.png';
 const Auth = observer(() => {
     const { user } = useContext(Context);
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const Auth = observer(() => {
 
     const click = async () => {
         try {
-            const response = await login(email, password);
+            const response = await login(login, password);
             user.setUser(response);
             user.setIsAuth(true);
             // navigate('/');
@@ -53,9 +53,9 @@ const Auth = observer(() => {
                 <Form className="d-flex flex-column align-items-center">
                     <Form.Control
                         style={{ width: '600px', height: '80px', borderRadius: '70px', border: "1px solid #D7D7D7", backgroundColor: '#D7D7D7', color: '#B4B4B4', fontSize: '20px', marginBottom: '20px', padding: '0 30px' }}
-                        placeholder="Введите email..."
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        placeholder="Введите логин..."
+                        value={login}
+                        onChange={e => setLogin(e.target.value)}
                         type="email"
                     />
 
