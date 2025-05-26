@@ -33,6 +33,7 @@ const NavBarCurator = observer(() => {
                         </span>
                         <div style={{ width: '170px', height: '40px', backgroundColor: '#D7D7D7', borderRadius: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', color: '#2FDBBC' }}>
                             9ИС-321
+                            {/* Реализовать расчет с бд */}
                         </div>
                     </div>
                     <Button

@@ -1,5 +1,6 @@
 const ApiError = require('../ApiError');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt'); // Добавлен импорт bcrypt
 const { Users } = require('../models/models');
 
 const ROLE_KEYS = {
@@ -20,10 +21,10 @@ const generateJwt = (id_user, login, role) => {
 class AuthController {
   async registration(req, res, next) {
     try {
-      const { login, password, secretKey } = req.body;
+      const { login, password, email, secretKey } = req.body;
 
-      if (!login || !password || !secretKey) {
-        return next(ApiError.badRequest('Все поля (логин, пароль и секретный ключ) обязательны для заполнения'));
+      if (!login || !password || !email || !secretKey) {
+        return next(ApiError.badRequest('Все поля (логин, пароль, почта и секретный ключ) обязательны для заполнения'));
       }
 
       const validKeys = Object.values(ROLE_KEYS);
@@ -43,13 +44,13 @@ class AuthController {
           break;
         }
       }
-      const user = await Users.create({ login, password, role });
-      const token = generateJwt(user.id_user, user.login, user.role);
+      const user = await Users.create({ login, password, email, role });
+      const token = generateJwt(user.id_user, user.login, user.email, user.role);
 
       return res.json({ token });
     } catch (error) {
       console.error('Registration error:', error);
-      return next(ApiError.internal('Ошибка при регистрации'));
+      return next(ApiError.internalServerError('Ошибка при регистрации')); // Изменено на internalServerError
     }
   }
 
@@ -67,13 +68,9 @@ class AuthController {
         return next(ApiError.notFound('Пользователь не найден'));
       }
 
+      // Используем bcrypt для проверки пароля
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
-        return next(ApiError.unauthorized('Неверный пароль'));
-      }
-
-      // Временная проверка пароля без хеширования (для тестирования)
-      if (password !== user.password) {
         return next(ApiError.unauthorized('Неверный пароль'));
       }
 
@@ -81,18 +78,17 @@ class AuthController {
       return res.json({ token });
     } catch (error) {
       console.error('Login error:', error);
-      return next(ApiError.internal('Ошибка при входе в систему'));
+      return next(ApiError.internalServerError('Ошибка при входе в систему')); // Изменено на internalServerError
     }
   }
 
-  // Метод для проверки авторизации (может понадобится)
   async check(req, res, next) {
     try {
       const token = generateJwt(req.user.id_user, req.user.login, req.user.role);
       return res.json({ token });
     } catch (error) {
       console.error('Check auth error:', error);
-      return next(ApiError.internal('Ошибка проверки авторизации'));
+      return next(ApiError.internalServerError('Ошибка проверки авторизации')); // Изменено на internalServerError
     }
   }
 }
