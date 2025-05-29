@@ -48,22 +48,27 @@ const Add = () => {
                                 id={`dropdown-button-drop-${idx}`}
                                 size="lg"
                                 title="Выберите студента">
-                                <Dropdown.Item eventKey="1">Реализовать</Dropdown.Item>
-                                <Dropdown.Item eventKey="2">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="1">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">Реализовать</Dropdown.Item>
                             </DropdownType>
                         ))}
 
                         {[DropdownButton].map((DropdownType, idx) => (
                             <DropdownType
-                                style={{ fontSize: '20px', border: 'none', float: 'right', marginRight: '93px', width: '614px', backgroundColor: '#D7D7D7'}}
+                                style={{ fontSize: '20px', border: 'none', float: 'right', marginRight: '93px', width: '614px', backgroundColor: '#D7D7D7' }}
                                 as={ButtonGroup}
                                 key={idx}
                                 variant="#D7D7D7"
                                 id={`dropdown-button-drop-${idx}`}
                                 size="lg"
                                 title="Выберите оценку">
-                                <Dropdown.Item eventKey="1">Реализовать</Dropdown.Item>
-                                <Dropdown.Item eventKey="2">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="1">5</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">4</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">3</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">2</Dropdown.Item>
                             </DropdownType>
                         ))}
                     </div>
@@ -78,8 +83,8 @@ const Add = () => {
                                 id={`dropdown-button-drop-${idx}`}
                                 size="lg"
                                 title="Выберите дисциплину">
-                                <Dropdown.Item eventKey="1">Реализовать</Dropdown.Item>
-                                <Dropdown.Item eventKey="2">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="1">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">Реализовать</Dropdown.Item>
                             </DropdownType>
                         ))}
 
@@ -105,17 +110,17 @@ const Add = () => {
                                 id={`dropdown-button-drop-${idx}`}
                                 size="lg"
                                 title="Выберите семестр">
-                                <Dropdown.Item eventKey="1">Реализовать</Dropdown.Item>
-                                <Dropdown.Item eventKey="2">Реализовать</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="1">1 (2024)</Dropdown.Item>
+                                <Dropdown.Item style={{ fontSize: '20px', border: 'none', width: '614px', backgroundColor: '#D7D7D7' }} eventKey="2">2 (2025)</Dropdown.Item>
                             </DropdownType>
                         ))}
-                    </div> 
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '150px'}}>
-                    <Button
-                        variant={"light"}
-                        style={{ width: '430px', height: '77px', borderRadius: '40px', color: 'white', fontSize: '26px', backgroundColor: '#2FDBBC' }}>
-                        Добавить оценку
-                    </Button></div>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '150px' }}>
+                        <Button
+                            variant={"light"}
+                            style={{ width: '430px', height: '77px', borderRadius: '40px', color: 'white', fontSize: '26px', backgroundColor: '#2FDBBC' }}>
+                            Добавить оценку
+                        </Button></div>
                 </Card>
             </Container>
             <NavBarTeacher />

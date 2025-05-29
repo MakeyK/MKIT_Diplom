@@ -85,6 +85,7 @@ const NavBarStudent = observer(() => {
                             Общий рейтинг
                         </span>
                         <div style={{ width: '80px', height: '40px', color: '#2FDBBC', backgroundColor: '#D7D7D7', borderRadius: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: 'bold' }}>
+                            90
                             {/* {calculateGeneralRating()} */}
                         </div>
                     </div>
@@ -94,6 +95,7 @@ const NavBarStudent = observer(() => {
                             Рейтинг группы
                         </span>
                         <div style={{ width: '80px', height: '40px', color: '#2FDBBC', backgroundColor: '#D7D7D7', borderRadius: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: 'bold' }}>
+                            10
                             {/* {calculateGroupRating()} */}
                         </div>
                     </div>

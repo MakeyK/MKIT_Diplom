@@ -14,7 +14,7 @@ const server = http.createServer(app);
 
 app.use(cors());
 app.use(express.json());
-
+// app.use(cors({ origin: '*' }));
 function generateETag(data) {
     return crypto.createHash('md5').update(data).digest('hex');
 }

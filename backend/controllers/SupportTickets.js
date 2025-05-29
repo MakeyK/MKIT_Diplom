@@ -16,7 +16,7 @@ class SupportTicketController {
             return res.json(ticket);
         } catch (error) {
             console.error('Create ticket error:', error);
-            return next(ApiError.internal('Ошибка при создании тикета'));
+            return next(ApiError.badRequest('Ошибка при создании тикета'));
         }
     }
 

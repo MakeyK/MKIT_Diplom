@@ -12,7 +12,7 @@ const ProfileKurator = () => {
     const navigate = useNavigate();
     const students = [
         { id: 1, name: 'Золотенков Даниил В.', rank: 4, avgScore: 4.8 },
-        { id: 2, name: 'Федоров Захар К.', rank: 5, avgScore: 4.6 },
+        { id: 2, name: 'Козлова Алина А.', rank: 5, avgScore: 4.6 },
         { id: 3, name: 'Дацук Виктория С.', rank: 6, avgScore: 4.4 },
         { id: 4, name: 'Суслова Алина М.', rank: 7, avgScore: 4.1 },
         { id: 5, name: 'Купер Евгений Д.', rank: 8, avgScore: 3.8 }
@@ -56,7 +56,7 @@ const ProfileKurator = () => {
 
                     <div style={{ backgroundColor: '#D7D7D7', height: '650px', width: '1468px', marginLeft: '32px', borderRadius: '40px', marginTop: '45px', position: 'relative', padding: '20px' }}>
                         <div style={{ width: '627px', margin: '0 auto', textAlign: 'center', color: 'black', fontSize: '24px', fontFamily: '"Press Start 2P"', fontWeight: '400', lineHeight: '35.32px', marginBottom: '40px' }}>
-                            Дацук Виктория Станиславовна 9 ИС-321
+                            Козлова Алина Андреевна 9 ИБ-124
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginLeft: '78px' }}>
@@ -68,19 +68,19 @@ const ProfileKurator = () => {
                                         Курс
                                     </div>
                                     <div style={{ color: '#2FDBBC', fontSize: '24px' }}>
-                                        3
+                                        1
                                     </div>
                                 </div>
 
                                 {/* Карточка куратора */}
                                 <div style={{ background: 'white', borderRadius: '20px', padding: '20px', textAlign: 'center', width: '282px', height: '121px' }}>
-                                    <div style={{ color: 'black', fontSize: '24px', marginBottom: '20px' }}>
+                                    <div style={{ color: 'black', fontSize: '24px', marginBottom: '5px' }}>
                                         Куратор
                                     </div>
                                     <div style={{
-                                        color: '#2FDBBC', fontSize: '22px'
+                                        color: '#2FDBBC', fontSize: '20px'
                                     }}>
-                                        Иванов В.С
+                                        Пономарев Михаил Б.
                                     </div>
                                 </div>
 
@@ -90,7 +90,7 @@ const ProfileKurator = () => {
                                         Общий рейтинг
                                     </div>
                                     <div style={{ color: '#2FDBBC', fontSize: '24px' }}>
-                                        75
+                                        52
                                     </div>
                                 </div>
 
@@ -100,7 +100,7 @@ const ProfileKurator = () => {
                                         Специальность
                                     </div>
                                     <div style={{ color: '#2FDBBC', fontSize: '14px' }}>
-                                        Информационные системы и программирование
+                                        Информационные безопасность
                                     </div>
                                 </div>
 
@@ -112,7 +112,7 @@ const ProfileKurator = () => {
                                     <div style={{
                                         color: '#2FDBBC', fontSize: '24px'
                                     }}>
-                                        6
+                                        5
                                     </div>
                                 </div>
                             </div>

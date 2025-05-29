@@ -23,7 +23,7 @@ const TechnicalSupportStudent = () => {
                     <span style={{ fontSize: '20px', marginBottom: '10px' }}>Куратор</span>
                     <div style={{ width: '200px', height: '44px', borderRadius: '40px', backgroundColor: '#D7D7D7', display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '10px' }}>
                         <span style={{ color: '#2FDBBC', fontSize: '16px' }}>
-                            Красавич Кристина С.
+                            Пономарев Михаил Б.
                             {/* Расчитать по таблице что за куратор */}
                         </span>
                     </div>

@@ -11,7 +11,7 @@ class GradeController {
             if (grade_value < 1 || grade_value > 5) {
                 return next(ApiError.badRequest('Оценка должна быть в диапазоне от 1 до 5'));
             }
-            const validGradeTypes = ['exam', 'test', 'homework', 'quiz', 'participation'];
+            const validGradeTypes = ['Экзамен', 'Тест', 'Домашняя работа', 'Самостоятельная работа', 'Контрольная работа', 'Курсовая'];
             if (!validGradeTypes.includes(grade_type)) {
                 return next(ApiError.badRequest(`Недопустимый тип оценки. Допустимые значения: ${validGradeTypes.join(', ')}`));
             }

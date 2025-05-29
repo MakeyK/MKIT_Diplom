@@ -4,10 +4,10 @@ const { Response, NextFunction } = require('express');
 const secret_key = process.env.SECRET_KEY;
 
 const ROLES = {
-  ADMIN: 'adminrole',
-  KURATOR: 'kurator111',
-  TEACHER: 'prepod590',
-  STUDENT: 'mkit'
+  ADMIN: 'admin',
+  KURATOR: 'kurator',
+  TEACHER: 'teacher',
+  STUDENT: 'student'
 };
 
 module.exports = function (allowedRoles) {

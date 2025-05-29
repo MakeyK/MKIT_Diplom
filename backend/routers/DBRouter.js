@@ -47,6 +47,7 @@ router.get('/groups/:id', authMiddleware, checkRoleMiddleware([checkRoleMiddlewa
 router.put('/groups/:id', authMiddleware, checkRoleMiddleware([checkRoleMiddleware.ROLES.ADMIN, checkRoleMiddleware.ROLES.KURATOR]), groupController.update);
 router.delete('/groups/:id', authMiddleware, checkRoleMiddleware([checkRoleMiddleware.ROLES.ADMIN]), groupController.delete);
 router.get('/groups/course/:course', authMiddleware, checkRoleMiddleware([checkRoleMiddleware.ROLES.ADMIN, checkRoleMiddleware.ROLES.KURATOR, checkRoleMiddleware.ROLES.TEACHER]), groupController.getByCourse);
+router.get('/curator/my-group', authMiddleware, curatorController.getMyGroup);
 
 // Курсы (админы, кураторы, преподаватели)
 router.post('/courses', authMiddleware, checkRoleMiddleware([checkRoleMiddleware.ROLES.ADMIN, checkRoleMiddleware.ROLES.KURATOR]), courseController.create);

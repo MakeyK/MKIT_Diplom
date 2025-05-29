@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, Container, Form, Button } from 'react-bootstrap';
 import { REGISTRATION_ROUTE } from "../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
-import { login } from "../http/userApi";
+import { login } from "../http/userApi"
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import fon from '../files/fon.png';
@@ -31,15 +31,14 @@ const Auth = observer(() => {
 
     const click = async () => {
         try {
-            const response = await login(login, password);
-            user.setUser(response);
+            const userData = await login(login, password);
+            user.setUser(userData);
             user.setIsAuth(true);
             // navigate('/');
         } catch (e) {
             alert(e.response?.data?.message || 'Ошибка авторизации');
         }
     }
-
     return (
         <Container
             className='d-flex justify-content-center align-items-center'
@@ -56,7 +55,7 @@ const Auth = observer(() => {
                         placeholder="Введите логин..."
                         value={login}
                         onChange={e => setLogin(e.target.value)}
-                        type="email"
+                        type="text"
                     />
 
                     <Form.Control

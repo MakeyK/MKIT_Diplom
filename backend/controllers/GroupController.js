@@ -138,6 +138,40 @@ class GroupController {
             return next(ApiError.internal('Ошибка при получении групп по курсу'));
         }
     }
+
+
+    async getMyGroup(req, res, next) {
+        try {
+            console.log('[1] JWT decoded:', req.user);
+            const userId = req.user.id_user;
+    
+            const curator = await Curators.findOne({ 
+                where: { id_user: userId },
+                include: [{
+                    model: Groups,
+                    attributes: ['name_group']
+                }]
+            });
+    
+            console.log('[2] Найденный куратор:', JSON.stringify(curator, null, 2));
+    
+            if (!curator) {
+                console.log('[3] Куратор не найден!');
+                return next(ApiError.notFound('Куратор не найден'));
+            }
+    
+            if (!curator.Group) {
+                console.log('[4] У куратора нет группы!');
+                return next(ApiError.notFound('Группа не назначена'));
+            }
+    
+            console.log('[5] Группа куратора:', curator.Group.name_group);
+            return res.json({ groupName: curator.Group.name_group });
+        } catch (error) {
+            console.error('[6] Ошибка в getMyGroup:', error);
+            return next(ApiError.internal('Ошибка сервера'));
+        }
+    }
 }
 
 module.exports = new GroupController();

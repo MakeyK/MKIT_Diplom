@@ -97,6 +97,7 @@ const Admin = () => {
 
                             {/* Разделительная линия */}
                             <div style={{ position: 'absolute', right: '20px', top: '60px', height: '170px', width: '5px', background: '#D7D7D7', borderRadius: '40px' }} />
+                            
                         </div>
                     </div>
                 </Card>

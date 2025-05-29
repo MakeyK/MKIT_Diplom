@@ -8,10 +8,32 @@ import { Button } from "react-bootstrap";
 import { TECHNICALSUPPORTTEACHER_ROUTE } from "../utils/consts";
 import logo from '../files/logotip.png';
 import profileIcon from '../files/user.png';
+import { getCuratorGroup } from "../http/userApi";
+import { $authHost, $host } from "../http/index";
 
 const NavBarCurator = observer(() => {
     const navigate = useNavigate();
+    const [groupName, setGroupName] = useState("9ИБ-124");
+    const { user } = useContext(Context);
 
+    useEffect(() => {
+        const loadGroup = async () => {
+            try {
+                console.log('[Frontend] Запрос группы...');
+                const response = await $host.get('api/mkit/curator/my-group'); // Прямой запрос без обёртки
+                console.log('[Frontend] Ответ:', response.data);
+                setGroupName(response.data.groupName || 'Группа не указана');
+            } catch (e) {
+                console.error('[Frontend] Ошибка:', e.response?.data || e.message);
+                setGroupName('Ошибка: ' + (e.response?.data?.message || e.message));
+            }
+        };
+    
+        if (user.isAuth) {
+            console.log('[Frontend] Пользователь авторизован, id:', user.user?.id);
+            loadGroup();
+        }
+    }, [user.isAuth]);
     const goToSupport = () => {
         navigate(TECHNICALSUPPORTTEACHER_ROUTE);
     };
@@ -32,8 +54,8 @@ const NavBarCurator = observer(() => {
                             Моя группа
                         </span>
                         <div style={{ width: '170px', height: '40px', backgroundColor: '#D7D7D7', borderRadius: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', color: '#2FDBBC' }}>
-                            9ИС-321
-                            {/* Реализовать расчет с бд */}
+                            {/* 9ИС-321 */}
+                            {groupName}
                         </div>
                     </div>
                     <Button
